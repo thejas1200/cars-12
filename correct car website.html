@@ -1,0 +1,878 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VELOCE | Premium Cars</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
+
+    :root {
+      --black: #111214;
+      --orange: #ff5b28;
+      --cream: #f5f2ed;
+      --line: #dedad3;
+      --grey: #666970;
+      --blue: #132b58;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Manrope, Arial, sans-serif;
+      color: var(--black);
+      background: var(--cream);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+
+    .wrap {
+      max-width: 1180px;
+      width: calc(100% - 48px);
+      margin: auto;
+    }
+
+    .topbar {
+      padding: 9px;
+      text-align: center;
+      color: #fff;
+      background: var(--orange);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .07em;
+    }
+
+    header {
+      height: 82px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #d7d3cc;
+    }
+
+    .logo {
+      font-size: 21px;
+      font-weight: 800;
+      letter-spacing: .15em;
+    }
+
+    .logo span { color: var(--orange); }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    nav a:hover { color: var(--orange); }
+
+    .button {
+      display: inline-block;
+      border: 0;
+      padding: 13px 19px;
+      color: #fff;
+      background: var(--black);
+      font-weight: 800;
+      font-size: 12px;
+      transition: .2s;
+    }
+
+    .button:hover {
+      background: var(--orange);
+      transform: translateY(-2px);
+    }
+
+    .hero {
+      min-height: 570px;
+      overflow: hidden;
+      color: #fff;
+      background:
+        linear-gradient(90deg, rgba(9,10,11,.91) 0%, rgba(9,10,11,.57) 48%, rgba(9,10,11,.12)),
+        url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=2000&q=90') center/cover;
+    }
+
+    .hero-content {
+      min-height: 570px;
+      padding-top: 105px;
+    }
+
+    .tag {
+      color: #ffad8e;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 670px;
+      margin: 14px 0 20px;
+      font: 700 clamp(50px, 7vw, 85px)/.98 'Playfair Display', Georgia, serif;
+      letter-spacing: -.05em;
+    }
+
+    h1 em { color: #ffd0c0; }
+
+    .hero p {
+      max-width: 440px;
+      color: #d1d1d1;
+      line-height: 1.75;
+      font-size: 14px;
+    }
+
+    .hero .button { margin-top: 15px; }
+
+    .search-box {
+      position: relative;
+      z-index: 2;
+      max-width: 1080px;
+      width: calc(100% - 48px);
+      margin: -43px auto 0;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr auto;
+      gap: 14px;
+      background: #fffdf8;
+      box-shadow: 0 14px 35px #0003;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--grey);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+
+    input, select {
+      width: 100%;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      outline: none;
+      background: transparent;
+      padding: 4px 0 10px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .search-box .button {
+      align-self: end;
+      padding: 13px 17px;
+    }
+
+    section { padding-top: 108px; }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      margin-bottom: 29px;
+    }
+
+    h2 {
+      margin: 7px 0 0;
+      font: 700 clamp(34px, 4vw, 50px)/1 'Playfair Display', Georgia, serif;
+      letter-spacing: -.04em;
+    }
+
+    .link {
+      border-bottom: 2px solid var(--orange);
+      padding-bottom: 4px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .filter {
+      border: 1px solid var(--line);
+      border-radius: 50px;
+      padding: 9px 16px;
+      color: var(--grey);
+      background: transparent;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .filter.active,
+    .filter:hover {
+      color: #fff;
+      border-color: var(--black);
+      background: var(--black);
+    }
+
+    .cars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .car {
+      overflow: hidden;
+      background: #fff;
+      transition: .25s;
+    }
+
+    .car:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 15px 30px #00000016;
+    }
+
+    .image {
+      position: relative;
+      height: 215px;
+      overflow: hidden;
+      background: #ddd;
+    }
+
+    .image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: .5s;
+    }
+
+    .car:hover img { transform: scale(1.05); }
+
+    .badge {
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      padding: 6px 8px;
+      background: #fffffff0;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+
+    .save {
+      position: absolute;
+      top: 11px;
+      right: 11px;
+      width: 35px;
+      height: 35px;
+      border: 0;
+      border-radius: 50%;
+      background: #fff;
+      font-size: 17px;
+    }
+
+    .save.saved {
+      color: #fff;
+      background: var(--orange);
+    }
+
+    .card-copy { padding: 17px 18px 19px; }
+    .card-copy h3 { margin: 0 0 6px; font-size: 16px; }
+    .card-copy p { margin: 0; color: var(--grey); font-size: 11px; }
+
+    .price {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 18px;
+      padding-top: 13px;
+      border-top: 1px solid #eeece9;
+    }
+
+    .price b {
+      font: 700 21px 'Playfair Display', Georgia, serif;
+    }
+
+    .details {
+      border: 0;
+      padding: 0;
+      color: var(--orange);
+      background: transparent;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .promise {
+      margin-top: 105px;
+      padding: 55px;
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 55px;
+      color: #fff;
+      background: var(--blue);
+    }
+
+    .promise h2 { max-width: 390px; }
+
+    .promise p {
+      max-width: 390px;
+      color: #c0c8d6;
+      line-height: 1.7;
+      font-size: 13px;
+    }
+
+    .reasons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+    }
+
+    .reason b {
+      display: block;
+      margin: 8px 0;
+      font-size: 14px;
+    }
+
+    .reason span {
+      color: #c0c8d6;
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .num {
+      color: #ffb39a;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .finance {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-bottom: 100px;
+    }
+
+    .finance-info {
+      padding: 52px;
+      background: #e5dfd5;
+    }
+
+    .finance-info p {
+      max-width: 380px;
+      color: #575a60;
+      line-height: 1.7;
+      font-size: 13px;
+    }
+
+    .calculator {
+      padding: 44px 54px;
+      color: #fff;
+      background: var(--black);
+    }
+
+    .calculator h3 {
+      margin: 0 0 25px;
+      font: 600 28px 'Playfair Display', Georgia, serif;
+    }
+
+    .calculator label {
+      margin-top: 17px;
+      color: #c2c2c2;
+    }
+
+    .calculator input { accent-color: var(--orange); }
+
+    .payment {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      margin-top: 27px;
+      padding-top: 19px;
+      border-top: 1px solid #444;
+    }
+
+    .payment span { color: #bbb; font-size: 11px; }
+
+    .payment b {
+      color: #ffb39a;
+      font: 600 34px 'Playfair Display', Georgia, serif;
+    }
+
+    footer {
+      padding: 42px 0 24px;
+      color: #fff;
+      background: var(--black);
+    }
+
+    .footer-top, .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .footer-top {
+      padding-bottom: 32px;
+      border-bottom: 1px solid #333;
+    }
+
+    .footer-top p {
+      max-width: 260px;
+      color: #aaa;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .footer-nav {
+      display: flex;
+      gap: 25px;
+      color: #ccc;
+      font-size: 12px;
+    }
+
+    .footer-bottom {
+      padding-top: 20px;
+      color: #777;
+      font-size: 10px;
+    }
+
+    dialog {
+      width: min(440px, calc(100% - 32px));
+      padding: 0;
+      border: 0;
+      box-shadow: 0 20px 70px #0007;
+    }
+
+    .modal { padding: 31px; }
+
+    .modal h3 {
+      margin: 0 0 7px;
+      font: 600 28px 'Playfair Display', Georgia, serif;
+    }
+
+    .modal p {
+      color: var(--grey);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .modal input {
+      margin: 8px 0;
+      padding: 12px;
+      border: 1px solid var(--line);
+    }
+
+    .close {
+      float: right;
+      border: 0;
+      background: transparent;
+      font-size: 23px;
+    }
+
+    dialog::backdrop { background: #0009; }
+
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 5;
+      padding: 13px 17px;
+      color: #fff;
+      background: #111;
+      font-size: 12px;
+      transform: translateY(100px);
+      transition: .25s;
+    }
+
+    .toast.show { transform: translateY(0); }
+
+    @media (max-width: 800px) {
+      .search-box { grid-template-columns: 1fr 1fr; }
+      .search-box .button { grid-column: span 2; }
+      .cars { grid-template-columns: 1fr 1fr; }
+      .promise, .finance { grid-template-columns: 1fr; }
+      .promise { padding: 35px 27px; gap: 35px; }
+      .finance-info, .calculator { padding: 35px 27px; }
+    }
+
+    @media (max-width: 520px) {
+      .wrap { width: calc(100% - 32px); }
+      nav a:not(.button) { display: none; }
+      .hero, .hero-content { min-height: 520px; }
+      .hero-content { padding-top: 85px; }
+      .search-box { grid-template-columns: 1fr; }
+      .search-box .button { grid-column: auto; }
+      .section-head { align-items: start; flex-direction: column; gap: 15px; }
+      .cars { grid-template-columns: 1fr; }
+      .reasons { grid-template-columns: 1fr; }
+      .footer-top, .footer-bottom { flex-direction: column; gap: 18px; }
+      .footer-nav { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">SUMMER EVENT — COMPLIMENTARY SERVICING ON SELECTED MODELS</div>
+
+  <div class="wrap">
+    <header>
+      <a class="logo" href="#home">VELO<span>•</span>CE</a>
+
+      <nav>
+        <a href="#cars">Inventory</a>
+        <a href="#about">Why us</a>
+        <a href="#finance">Finance</a>
+        <a class="button" href="#contact">Book a viewing</a>
+      </nav>
+    </header>
+  </div>
+
+  <main id="home">
+    <section class="hero" style="padding:0">
+      <div class="wrap hero-content">
+        <div class="tag">Driven by distinction</div>
+        <h1>Find a car that feels <em>like you.</em></h1>
+        <p>Curated performance, effortless buying and a personal service from first scroll to first drive.</p>
+        <a class="button" href="#cars">Explore the collection</a>
+      </div>
+    </section>
+
+    <form class="search-box" id="searchForm">
+      <div>
+        <label>SEARCH INVENTORY</label>
+        <input id="search" placeholder="Make or model">
+      </div>
+
+      <div>
+        <label>VEHICLE TYPE</label>
+        <select id="type">
+          <option value="all">All types</option>
+          <option value="SUV">SUV</option>
+          <option value="Sports">Sports</option>
+          <option value="Saloon">Saloon</option>
+        </select>
+      </div>
+
+      <div>
+        <label>MAX BUDGET</label>
+        <select id="budget">
+          <option value="999999">Any price</option>
+          <option value="50000">Up to £50k</option>
+          <option value="80000">Up to £80k</option>
+        </select>
+      </div>
+
+      <div>
+        <label>FUEL TYPE</label>
+        <select id="fuel">
+          <option value="all">Any fuel</option>
+          <option value="Electric">Electric</option>
+          <option value="Hybrid">Hybrid</option>
+          <option value="Petrol">Petrol</option>
+        </select>
+      </div>
+
+      <button class="button">Search cars</button>
+    </form>
+
+    <section class="wrap" id="cars">
+      <div class="section-head">
+        <div>
+          <div class="tag" style="color:#ff5b28">Selected for you</div>
+          <h2>Meet the collection.</h2>
+        </div>
+
+        <a class="link" href="#cars">VIEW ALL CARS</a>
+      </div>
+
+      <div class="filters">
+        <button class="filter active" data-filter="all">All vehicles</button>
+        <button class="filter" data-filter="Electric">Electric</button>
+        <button class="filter" data-filter="SUV">SUV</button>
+        <button class="filter" data-filter="Sports">Sports</button>
+        <button class="filter" data-filter="Hybrid">Hybrid</button>
+      </div>
+
+      <div class="cars">
+        <article class="car" data-name="Tesla Model S Plaid" data-type="Electric Saloon" data-price="78950">
+          <div class="image">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/2023%20Tesla%20Model%20S%20Plaid.jpg?width=1000" alt="Tesla Model S Plaid">
+            <span class="badge">2024 · ELECTRIC</span>
+            <button class="save">♡</button>
+          </div>
+          <div class="card-copy">
+            <h3>Tesla Model S Plaid</h3>
+            <p>2024 · 8,320 miles · Automatic</p>
+            <div class="price"><b>£78,950</b><button class="details">VIEW CAR →</button></div>
+          </div>
+        </article>
+
+        <article class="car" data-name="Porsche Taycan 4S" data-type="Electric Sports" data-price="84990">
+          <div class="image">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Porsche%20Taycan%204S%20%282020%29%20%2849796966591%29.jpg?width=1000" alt="Porsche Taycan 4S">
+            <span class="badge">2023 · ELECTRIC</span>
+            <button class="save">♡</button>
+          </div>
+          <div class="card-copy">
+            <h3>Porsche Taycan 4S</h3>
+            <p>2023 · 12,108 miles · Automatic</p>
+            <div class="price"><b>£84,990</b><button class="details">VIEW CAR →</button></div>
+          </div>
+        </article>
+
+        <article class="car" data-name="BMW iX M60" data-type="Electric SUV" data-price="68750">
+          <div class="image">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/2022-05%20BMW%20IX-M60.jpg?width=1000" alt="BMW iX M60">
+            <span class="badge">2023 · ELECTRIC</span>
+            <button class="save">♡</button>
+          </div>
+          <div class="card-copy">
+            <h3>BMW iX M60</h3>
+            <p>2023 · 15,654 miles · Automatic</p>
+            <div class="price"><b>£68,750</b><button class="details">VIEW CAR →</button></div>
+          </div>
+        </article>
+
+        <article class="car" data-name="Audi RS 6 Avant" data-type="Petrol Sports" data-price="76500">
+          <div class="image">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Audi%20RS%206%20Avant%20%282022%29%20%2852565765987%29.jpg?width=1000" alt="Audi RS 6 Avant">
+            <span class="badge">2022 · PETROL</span>
+            <button class="save">♡</button>
+          </div>
+          <div class="card-copy">
+            <h3>Audi RS 6 Avant</h3>
+            <p>2022 · 20,442 miles · Automatic</p>
+            <div class="price"><b>£76,500</b><button class="details">VIEW CAR →</button></div>
+          </div>
+        </article>
+
+        <article class="car" data-name="Range Rover Sport PHEV" data-type="Hybrid SUV" data-price="71995">
+          <div class="image">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Land%20Rover%20RANGE%20ROVER%20SPORT%20PHEV%20AUTOBIOGRAPHY%20DYNAMIC%20%28L494%29%20front.jpg?width=1000" alt="Range Rover Sport PHEV">
+            <span class="badge">2023 · HYBRID</span>
+            <button class="save">♡</button>
+          </div>
+          <div class="card-copy">
+            <h3>Range Rover Sport PHEV</h3>
+            <p>2023 · 11,273 miles · Automatic</p>
+            <div class="price"><b>£71,995</b><button class="details">VIEW CAR →</button></div>
+          </div>
+        </article>
+
+        <article class="car" data-name="Volvo XC60 Recharge" data-type="Hybrid SUV" data-price="44950">
+          <div class="image">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/23%20Volvo%20XC60%20Recharge%20T8%20Core%20Bright%20Theme.jpg?width=1000" alt="Volvo XC60 Recharge">
+            <span class="badge">2023 · HYBRID</span>
+            <button class="save">♡</button>
+          </div>
+          <div class="card-copy">
+            <h3>Volvo XC60 Recharge</h3>
+            <p>2023 · 9,828 miles · Automatic</p>
+            <div class="price"><b>£44,950</b><button class="details">VIEW CAR →</button></div>
+          </div>
+        </article>
+      </div>
+
+      <p id="empty" style="display:none;text-align:center;padding:40px;color:#666">
+        No cars found. Try a different search.
+      </p>
+    </section>
+
+    <section class="wrap" id="about">
+      <div class="promise">
+        <div>
+          <div class="tag">The Veloce way</div>
+          <h2>A better way to buy your next car.</h2>
+          <p>We remove the pressure and put the joy back into buying. Every car is carefully chosen, thoroughly checked and ready for the road.</p>
+        </div>
+
+        <div class="reasons">
+          <div class="reason"><span class="num">01 /</span><b>Hand-picked stock</b><span>Only the best examples make it through our 150-point inspection.</span></div>
+          <div class="reason"><span class="num">02 /</span><b>Clear pricing</b><span>No hidden extras. The price you see is the price you pay.</span></div>
+          <div class="reason"><span class="num">03 /</span><b>At your pace</b><span>Book a relaxed test drive when it suits you.</span></div>
+          <div class="reason"><span class="num">04 /</span><b>Here after handover</b><span>Our care team remains just a call away.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap finance" id="finance">
+      <div class="finance-info">
+        <div class="tag" style="color:#ff5b28">Make it yours</div>
+        <h2>Simple finance. No surprises.</h2>
+        <p>Explore a tailored monthly estimate in seconds. It’s a guide, not a quote—but a good place to start your search.</p>
+        <button class="button" onclick="document.getElementById('contactDialog').showModal()">Speak to an adviser</button>
+      </div>
+
+      <div class="calculator">
+        <h3>Finance calculator</h3>
+
+        <label>CAR PRICE <span id="priceText">£50,000</span></label>
+        <input id="carPrice" type="range" min="10000" max="100000" step="1000" value="50000">
+
+        <label>DEPOSIT <span id="depositText">£5,000</span></label>
+        <input id="deposit" type="range" min="0" max="30000" step="500" value="5000">
+
+        <label>TERM <span id="termText">48 months</span></label>
+        <input id="term" type="range" min="24" max="60" step="12" value="48">
+
+        <div class="payment">
+          <span>ESTIMATED MONTHLY<br><small>7.9% APR representative</small></span>
+          <b id="monthly">£1,116</b>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <div class="wrap">
+      <div class="footer-top">
+        <div>
+          <a class="logo" href="#home">VELO<span>•</span>CE</a>
+          <p>Finding exceptional cars for people who love the drive.</p>
+        </div>
+
+        <div class="footer-nav">
+          <a href="#cars">Inventory</a>
+          <a href="#about">Our promise</a>
+          <a href="#finance">Finance</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 VELOCE AUTOMOTIVE</span>
+        <span>UNI PROJECT WEBSITE</span>
+      </div>
+    </div>
+  </footer>
+
+  <dialog id="contactDialog">
+    <div class="modal">
+      <button class="close" onclick="document.getElementById('contactDialog').close()">×</button>
+      <h3>Book a viewing</h3>
+      <p>Leave your details and we will arrange a relaxed test drive.</p>
+
+      <form id="contactForm">
+        <input required placeholder="Your name">
+        <input required type="email" placeholder="Email address">
+        <input placeholder="Car you are interested in">
+        <button class="button" style="width:100%;margin-top:8px">Request a viewing</button>
+      </form>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const cards = [...document.querySelectorAll('.car')];
+    const empty = document.getElementById('empty');
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+
+      clearTimeout(window.toastTimer);
+      window.toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+
+    function runSearch() {
+      const query = document.getElementById('search').value.toLowerCase();
+      const type = document.getElementById('type').value;
+      const fuel = document.getElementById('fuel').value;
+      const budget = +document.getElementById('budget').value;
+      let amount = 0;
+
+      cards.forEach(card => {
+        const matches =
+          (!query || card.dataset.name.toLowerCase().includes(query)) &&
+          (type === 'all' || card.dataset.type.includes(type)) &&
+          (fuel === 'all' || card.dataset.type.includes(fuel)) &&
+          +card.dataset.price <= budget;
+
+        card.style.display = matches ? '' : 'none';
+        if (matches) amount++;
+      });
+
+      empty.style.display = amount ? 'none' : 'block';
+      document.getElementById('cars').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    document.getElementById('searchForm').addEventListener('submit', event => {
+      event.preventDefault();
+      runSearch();
+    });
+
+    document.querySelectorAll('.filter').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.filter').forEach(x => x.classList.remove('active'));
+        button.classList.add('active');
+
+        let visible = 0;
+
+        cards.forEach(card => {
+          const matches = button.dataset.filter === 'all' || card.dataset.type.includes(button.dataset.filter);
+          card.style.display = matches ? '' : 'none';
+
+          if (matches) visible++;
+        });
+
+        empty.style.display = visible ? 'none' : 'block';
+      });
+    });
+
+    document.querySelectorAll('.save').forEach(button => {
+      button.addEventListener('click', () => {
+        button.classList.toggle('saved');
+        button.textContent = button.classList.contains('saved') ? '♥' : '♡';
+
+        showToast(button.classList.contains('saved')
+          ? 'Saved to your shortlist'
+          : 'Removed from shortlist'
+        );
+      });
+    });
+
+    document.querySelectorAll('.details').forEach(button => {
+      button.addEventListener('click', () => {
+        document.getElementById('contactDialog').showModal();
+      });
+    });
+
+    const money = n => '£' + Number(n).toLocaleString('en-GB');
+
+    const carPrice = document.getElementById('carPrice');
+    const deposit = document.getElementById('deposit');
+    const term = document.getElementById('term');
+
+    function finance() {
+      const price = +carPrice.value;
+      const depositAmount = +deposit.value;
+      const months = +term.value;
+      const rate = .079 / 12;
+      const loan = Math.max(0, price - depositAmount);
+
+      const payment = loan * rate * Math.pow(1 + rate, months) /
+        (Math.pow(1 + rate, months) - 1);
+
+      document.getElementById('priceText').textContent = money(price);
+      document.getElementById('depositText').textContent = money(depositAmount);
+      document.getElementById('termText').textContent = months + ' months';
+      document.getElementById('monthly').textContent = money(Math.round(payment));
+    }
+
+    [carPrice, deposit, term].forEach(input => {
+      input.addEventListener('input', finance);
+    });
+
+    finance();
+
+    document.getElementById('contactForm').addEventListener('submit', event => {
+      event.preventDefault();
+      document.getElementById('contactDialog').close();
+      showToast('Thanks — we will be in touch soon!');
+    });
+  </script>
+</body>
+</html>
+```
